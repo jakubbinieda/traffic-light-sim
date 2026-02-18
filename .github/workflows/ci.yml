@@ -30,7 +30,7 @@ jobs:
           cache: gradle
 
       - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v4
+        uses: gradle/wrapper-validation-action@v3
 
       - name: Build, test, check format
         run: ./gradlew clean test spotlessCheck jacocoTestReport --no-daemon
