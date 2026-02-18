@@ -24,6 +24,9 @@ replay_pid*
 *.ear
 *.nar
 
+# Allow Gradle wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
+
 # OS / temp
 *.swp
 *~
