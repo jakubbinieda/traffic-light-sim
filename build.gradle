@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'com.diffplug.spotless' version '8.2.1'
 }
 
 repositories {
@@ -30,5 +31,11 @@ jacocoTestReport {
     reports {
         xml.required.set(true)
         html.required.set(true)
+    }
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.34.1')
     }
 }
