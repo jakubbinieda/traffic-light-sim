@@ -35,6 +35,9 @@ jobs:
       - name: Build, test, check format
         run: ./gradlew clean test spotlessCheck jacocoTestReport --no-daemon
 
+      - name: Run pitest
+        run: ./gradlew pitest --no-daemon
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v6
@@ -51,3 +54,11 @@ jobs:
           name: jacoco-report
           path: |
             **/build/reports/jacoco/test/html/**
+
+      - name: Upload pitest report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: pitest-report
+          path: |
+            **/build/reports/pitest/**
