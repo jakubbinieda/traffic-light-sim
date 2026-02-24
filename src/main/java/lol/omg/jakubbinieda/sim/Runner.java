@@ -24,7 +24,7 @@ public final class Runner {
 
   public static void main(String[] args) {
     if (args.length != 2) {
-      System.err.println("Usage: java -jar sim.jar <input.json> <output.json>");
+      System.err.println("Invalid number of arguments");
       return;
     }
 
