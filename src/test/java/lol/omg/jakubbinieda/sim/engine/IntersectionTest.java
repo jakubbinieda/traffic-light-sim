@@ -62,10 +62,7 @@ public class IntersectionTest {
     IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
     Mockito.when(layout.getAllMovements()).thenReturn(allMovements);
     Mockito.when(layout.getApproachDirections()).thenReturn(List.of(Direction.values()));
-<<<<<<< feat/io-and-runner
     Mockito.when(layout.getSignalGroups()).thenReturn(signalGroups);
-=======
->>>>>>> main
 
     for (Direction d : Direction.values()) {
       for (Movement m : movements.get(d)) {
@@ -81,11 +78,7 @@ public class IntersectionTest {
     Mockito.when(loadBalancer.selectLane(Mockito.any()))
         .thenAnswer(inv -> ((List<Lane>) inv.getArgument(0)).getFirst());
 
-<<<<<<< feat/io-and-runner
     return new Intersection(layout, controller, loadBalancer);
-=======
-    return new Intersection(layout, controller, signalGroups, loadBalancer);
->>>>>>> main
   }
 
   static Controller fixedController(SignalCommand... commands) {
@@ -109,19 +102,10 @@ public class IntersectionTest {
     public void Construction_throws_NullPointerException_when_layout_is_null() {
       Controller controller = Mockito.mock(Controller.class);
       LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-<<<<<<< feat/io-and-runner
 
       Exception e =
           assertThrows(
               NullPointerException.class, () -> new Intersection(null, controller, loadBalancer));
-=======
-      List<SignalGroup> signalGroups = List.of();
-
-      Exception e =
-          assertThrows(
-              NullPointerException.class,
-              () -> new Intersection(null, controller, signalGroups, loadBalancer));
->>>>>>> main
       assertEquals("layout cannot be null", e.getMessage());
     }
 
@@ -130,62 +114,26 @@ public class IntersectionTest {
     public void Construction_throws_NullPointerException_when_controller_is_null() {
       IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
       LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-<<<<<<< feat/io-and-runner
 
       Exception e =
           assertThrows(
               NullPointerException.class, () -> new Intersection(layout, null, loadBalancer));
-=======
-      List<SignalGroup> signalGroups = List.of();
-
-      Exception e =
-          assertThrows(
-              NullPointerException.class,
-              () -> new Intersection(layout, null, signalGroups, loadBalancer));
->>>>>>> main
       assertEquals("controller cannot be null", e.getMessage());
     }
 
     @Test
-<<<<<<< feat/io-and-runner
-=======
-    @DisplayName("Construction throws NullPointerException when signalGroups is null")
-    public void Construction_throws_NullPointerException_when_signalGroups_is_null() {
-      IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
-      Controller controller = Mockito.mock(Controller.class);
-      LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-
-      Exception e =
-          assertThrows(
-              NullPointerException.class,
-              () -> new Intersection(layout, controller, null, loadBalancer));
-      assertEquals("signalGroups cannot be null", e.getMessage());
-    }
-
-    @Test
->>>>>>> main
     @DisplayName("Construction throws NullPointerException when loadBalancer is null")
     public void Construction_throws_NullPointerException_when_loadBalancer_is_null() {
       IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
       Controller controller = Mockito.mock(Controller.class);
-<<<<<<< feat/io-and-runner
 
       Exception e =
           assertThrows(
               NullPointerException.class, () -> new Intersection(layout, controller, null));
-=======
-      List<SignalGroup> signalGroups = List.of();
-
-      Exception e =
-          assertThrows(
-              NullPointerException.class,
-              () -> new Intersection(layout, controller, signalGroups, null));
->>>>>>> main
       assertEquals("loadBalancer cannot be null", e.getMessage());
     }
 
     @Test
-<<<<<<< feat/io-and-runner
     @DisplayName("Construction succeeds when all parameters are valid")
     public void Construction_succeeds_when_all_parameters_are_valid() {
       IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
@@ -196,66 +144,6 @@ public class IntersectionTest {
       LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
 
       new Intersection(layout, controller, loadBalancer);
-=======
-    @DisplayName("Construction throws IllegalArgumentException when signalGroups is empty")
-    public void Construction_throws_IllegalArgumentException_when_signalGroups_is_empty() {
-      IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
-      Controller controller = Mockito.mock(Controller.class);
-      LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-
-      Exception e =
-          assertThrows(
-              IllegalArgumentException.class,
-              () -> new Intersection(layout, controller, List.of(), loadBalancer));
-      assertEquals("signalGroups list cannot be empty", e.getMessage());
-    }
-
-    @Test
-    @DisplayName(
-        "Construction throws IllegalArgumentException when signalGroups does not cover all movements")
-    public void
-        Construction_throws_IllegalArgumentException_when_signalGroups_does_not_cover_all_movements() {
-      IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
-      Mockito.when(layout.getAllMovements())
-          .thenReturn(
-              Set.of(
-                  new Movement(Direction.NORTH, Direction.SOUTH),
-                  new Movement(Direction.EAST, Direction.WEST)));
-      Controller controller = Mockito.mock(Controller.class);
-      LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-      SignalGroup signalGroup = Mockito.mock(SignalGroup.class);
-      Mockito.when(signalGroup.movements())
-          .thenReturn(Set.of(new Movement(Direction.NORTH, Direction.SOUTH)));
-
-      Exception e =
-          assertThrows(
-              IllegalArgumentException.class,
-              () -> new Intersection(layout, controller, List.of(signalGroup), loadBalancer));
-      assertEquals(
-          "Movement Movement[from=EAST, to=WEST] is not covered by any signal group",
-          e.getMessage());
-    }
-
-    @Test
-    @DisplayName("Construction succeeds when all parameters are valid")
-    public void Construction_succeeds_when_all_parameters_are_valid() {
-      IntersectionLayout layout = Mockito.mock(IntersectionLayout.class);
-      Mockito.when(layout.getAllMovements())
-          .thenReturn(
-              Set.of(
-                  new Movement(Direction.NORTH, Direction.SOUTH),
-                  new Movement(Direction.EAST, Direction.WEST)));
-      Controller controller = Mockito.mock(Controller.class);
-      LoadBalancer loadBalancer = Mockito.mock(LoadBalancer.class);
-      SignalGroup signalGroup1 = Mockito.mock(SignalGroup.class);
-      Mockito.when(signalGroup1.movements())
-          .thenReturn(Set.of(new Movement(Direction.NORTH, Direction.SOUTH)));
-      SignalGroup signalGroup2 = Mockito.mock(SignalGroup.class);
-      Mockito.when(signalGroup2.movements())
-          .thenReturn(Set.of(new Movement(Direction.EAST, Direction.WEST)));
-
-      new Intersection(layout, controller, List.of(signalGroup1, signalGroup2), loadBalancer);
->>>>>>> main
     }
   }
 
@@ -288,11 +176,7 @@ public class IntersectionTest {
           .thenReturn(Set.of(new Movement(Direction.NORTH, Direction.SOUTH)));
       Mockito.when(signalGroup1.id()).thenReturn("sg-1");
 
-<<<<<<< feat/io-and-runner
       intersection = new Intersection(layout, controller, loadBalancer);
-=======
-      intersection = new Intersection(layout, controller, List.of(signalGroup1), loadBalancer);
->>>>>>> main
     }
 
     @Test
@@ -305,20 +189,12 @@ public class IntersectionTest {
     @Test
     @DisplayName("Adding vehicle throws IllegalArgumentException when vehicle already exists")
     public void Adding_vehicle_throws_IllegalArgumentException_when_vehicle_already_exists() {
-<<<<<<< feat/io-and-runner
       Vehicle vehicle = new Vehicle("v1", new Movement(Direction.NORTH, Direction.SOUTH));
-=======
-      Vehicle vehicle = new Vehicle("vehicle1", new Movement(Direction.NORTH, Direction.SOUTH));
->>>>>>> main
       intersection.addVehicle(vehicle);
 
       Exception e =
           assertThrows(IllegalArgumentException.class, () -> intersection.addVehicle(vehicle));
-<<<<<<< feat/io-and-runner
       assertEquals("Vehicle with ID v1 already exists", e.getMessage());
-=======
-      assertEquals("Vehicle with ID vehicle1 already exists", e.getMessage());
->>>>>>> main
     }
 
     @Test
@@ -326,22 +202,14 @@ public class IntersectionTest {
         "Adding vehicle throws IllegalArgumentException when no lanes are available for movement")
     public void
         Adding_vehicle_throws_IllegalArgumentException_when_no_lanes_are_available_for_movement() {
-<<<<<<< feat/io-and-runner
       Vehicle vehicle = new Vehicle("v2", new Movement(Direction.EAST, Direction.WEST));
-=======
-      Vehicle vehicle = new Vehicle("vehicle2", new Movement(Direction.EAST, Direction.WEST));
->>>>>>> main
       assertThrows(IllegalArgumentException.class, () -> intersection.addVehicle(vehicle));
     }
 
     @Test
     @DisplayName("Adding vehicle succeeds when vehicle is valid")
     public void Adding_vehicle_succeeds_when_vehicle_is_valid() {
-<<<<<<< feat/io-and-runner
       Vehicle vehicle = new Vehicle("v1", new Movement(Direction.NORTH, Direction.SOUTH));
-=======
-      Vehicle vehicle = new Vehicle("vehicle1", new Movement(Direction.NORTH, Direction.SOUTH));
->>>>>>> main
       intersection.addVehicle(vehicle);
     }
   }
@@ -786,10 +654,7 @@ public class IntersectionTest {
           .thenReturn(List.of(laneSouth0));
       Mockito.when(layout.getLanesFor(mv(Direction.SOUTH, Direction.EAST)))
           .thenReturn(List.of(laneSouth1));
-<<<<<<< feat/io-and-runner
       Mockito.when(layout.getSignalGroups()).thenReturn(List.of(sg));
-=======
->>>>>>> main
 
       Road road = Mockito.mock(Road.class);
       Mockito.when(road.lanes()).thenReturn(List.of(laneSouth0, laneSouth1));
@@ -801,11 +666,7 @@ public class IntersectionTest {
 
       Controller controller = fixedController(new SignalCommand("sg-south", SignalState.GREEN));
 
-<<<<<<< feat/io-and-runner
       Intersection intersection = new Intersection(layout, controller, loadBalancer);
-=======
-      Intersection intersection = new Intersection(layout, controller, List.of(sg), loadBalancer);
->>>>>>> main
       intersection.addVehicle(new Vehicle("v1", mv(Direction.SOUTH, Direction.NORTH)));
       intersection.addVehicle(new Vehicle("v2", mv(Direction.SOUTH, Direction.EAST)));
 

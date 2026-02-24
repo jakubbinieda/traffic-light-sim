@@ -6,11 +6,7 @@ import lol.omg.jakubbinieda.sim.geometry.IntersectionLayout;
 import lol.omg.jakubbinieda.sim.signal.SignalCommand;
 
 public interface Controller {
-<<<<<<< feat/io-and-runner
   void initialize(IntersectionLayout layout);
-=======
-  void Initialize(IntersectionLayout layout);
->>>>>>> main
 
   List<SignalCommand> decide(IntersectionState state);
 }
