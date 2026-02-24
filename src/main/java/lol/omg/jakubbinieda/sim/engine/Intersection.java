@@ -31,7 +31,6 @@ import lol.omg.jakubbinieda.sim.signal.SignalState;
 public class Intersection {
   private final IntersectionLayout layout;
   private final Controller controller;
-  private final List<SignalGroup> signalGroups;
   private final LoadBalancer loadBalancer;
 
   private final Map<String, Vehicle> allVehicles;
@@ -41,28 +40,10 @@ public class Intersection {
 
   private int stepCount;
 
-  public Intersection(
-      IntersectionLayout layout,
-      Controller controller,
-      List<SignalGroup> signalGroups,
-      LoadBalancer loadBalancer) {
+  public Intersection(IntersectionLayout layout, Controller controller, LoadBalancer loadBalancer) {
     this.layout = Objects.requireNonNull(layout, "layout cannot be null");
     this.controller = Objects.requireNonNull(controller, "controller cannot be null");
-    this.signalGroups = Objects.requireNonNull(signalGroups, "signalGroups cannot be null");
     this.loadBalancer = Objects.requireNonNull(loadBalancer, "loadBalancer cannot be null");
-
-    if (signalGroups.isEmpty()) {
-      throw new IllegalArgumentException("signalGroups list cannot be empty");
-    }
-
-    Set<Movement> covered =
-        signalGroups.stream().flatMap(group -> group.movements().stream()).collect(toSet());
-    for (Movement movement : layout.getAllMovements()) {
-      if (!covered.contains(movement)) {
-        throw new IllegalArgumentException(
-            "Movement " + movement + " is not covered by any signal group");
-      }
-    }
 
     this.allVehicles = new LinkedHashMap<>();
     this.laneQueues = new LinkedHashMap<>();
@@ -70,7 +51,7 @@ public class Intersection {
     this.vehiclesOnIntersection = new LinkedHashSet<>();
     this.stepCount = 0;
 
-    for (SignalGroup sg : signalGroups) {
+    for (SignalGroup sg : layout.getSignalGroups()) {
       signalStates.put(sg.id(), SignalState.RED);
     }
   }
@@ -132,7 +113,7 @@ public class Intersection {
       Vehicle vehicle = queue.peek();
       Movement movement = vehicle.getMovement();
 
-      for (SignalGroup signalGroup : signalGroups) {
+      for (SignalGroup signalGroup : layout.getSignalGroups()) {
         SignalState state = signalStates.get(signalGroup.id());
         if ((state == SignalState.GREEN || state == SignalState.GREEN_ARROW)
             && signalGroup.movements().contains(movement)) {
@@ -201,7 +182,7 @@ public class Intersection {
       return;
     }
 
-    Set<String> knownIds = signalGroups.stream().map(SignalGroup::id).collect(toSet());
+    Set<String> knownIds = layout.getSignalGroups().stream().map(SignalGroup::id).collect(toSet());
 
     for (SignalCommand command : commands) {
       if (knownIds.contains(command.signalGroupId())) {
