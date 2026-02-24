@@ -40,11 +40,10 @@ public class RunnerSmokeTest {
 
   @ParameterizedTest
   @ValueSource(strings = {"", "input.json", "input.json output.json extra"})
-  @DisplayName("Wrong number of arguments prints usage message")
-  public void Wrong_number_of_arguments_prints_usage_message(String args) {
+  @DisplayName("Wrong number of arguments fails")
+  public void Wrong_number_of_arguments_fails(String args) {
     assertDoesNotThrow(() -> Runner.main(args.split(" ")));
-    assertEquals(
-        "Usage: java -jar sim.jar <input.json> <output.json>", capturedErr.toString().trim());
+    assertEquals("Invalid number of arguments", capturedErr.toString().trim());
   }
 
   @Test

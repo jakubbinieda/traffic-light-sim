@@ -1,4 +1,4 @@
-package lol.omg.jakubbinieda.sim.Factories;
+package lol.omg.jakubbinieda.sim.factories;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.*;
-import lol.omg.jakubbinieda.sim.Factories.SimpleIntersectionFactory;
 import lol.omg.jakubbinieda.sim.controller.Controller;
 import lol.omg.jakubbinieda.sim.engine.Intersection;
 import lol.omg.jakubbinieda.sim.engine.loadbalancer.LoadBalancer;

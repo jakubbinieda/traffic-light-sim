@@ -3,13 +3,13 @@ package lol.omg.jakubbinieda.sim;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import lol.omg.jakubbinieda.sim.Factories.SimpleIntersectionFactory;
 import lol.omg.jakubbinieda.sim.controller.BasicController;
 import lol.omg.jakubbinieda.sim.controller.Controller;
 import lol.omg.jakubbinieda.sim.engine.Intersection;
 import lol.omg.jakubbinieda.sim.engine.StepResult;
 import lol.omg.jakubbinieda.sim.engine.loadbalancer.LoadBalancer;
 import lol.omg.jakubbinieda.sim.engine.loadbalancer.RandomBalancer;
+import lol.omg.jakubbinieda.sim.factories.SimpleIntersectionFactory;
 import lol.omg.jakubbinieda.sim.io.JsonParser;
 import lol.omg.jakubbinieda.sim.io.SimulationInput;
 import lol.omg.jakubbinieda.sim.io.SimulationOutput;
@@ -24,7 +24,7 @@ public final class Runner {
 
   public static void main(String[] args) {
     if (args.length != 2) {
-      System.err.println("Usage: java -jar sim.jar <input.json> <output.json>");
+      System.err.println("Invalid number of arguments");
       return;
     }
 
