@@ -97,8 +97,7 @@ public class RoadTest {
 
   @Test
   @DisplayName("getLanesAllowingMovement returns lanes that allow the specified movement")
-  public void getLanesAllowingMovement_returns_lanes_that_allow_specified_movement()
-      throws Exception {
+  public void getLanesAllowingMovement_returns_lanes_that_allow_specified_movement() {
     Lane lane1 =
         new Lane("lane1", Direction.NORTH, Set.of(new Movement(Direction.NORTH, Direction.NORTH)));
     Lane lane2 =
