@@ -5,15 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+<<<<<<< feat/io-and-runner
 import java.util.Map;
 import java.util.Set;
 import lol.omg.jakubbinieda.sim.model.Direction;
 import lol.omg.jakubbinieda.sim.model.Movement;
 import lol.omg.jakubbinieda.sim.signal.SignalGroup;
+=======
+import java.util.Set;
+import lol.omg.jakubbinieda.sim.model.Direction;
+import lol.omg.jakubbinieda.sim.model.Movement;
+>>>>>>> main
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class IntersectionLayoutTest {
+<<<<<<< feat/io-and-runner
   static SignalGroup sg(String id, Movement... movements) {
     return new SignalGroup(id, Set.of(movements));
   }
@@ -27,10 +34,17 @@ public class IntersectionLayoutTest {
             () ->
                 new IntersectionLayout(
                     null, List.of(sg("sg", new Movement(Direction.NORTH, Direction.SOUTH)))));
+=======
+  @Test
+  @DisplayName("Construction throws NullPointerException when roads is null")
+  public void Construction_throws_NullPointerException_when_roads_is_null() {
+    Exception e = assertThrows(NullPointerException.class, () -> new IntersectionLayout(null));
+>>>>>>> main
     assertEquals("roads cannot be null", e.getMessage());
   }
 
   @Test
+<<<<<<< feat/io-and-runner
   @DisplayName("Construction throws NullPointerException when signalGroups is null")
   public void Construction_throws_NullPointerException_when_signalGroups_is_null() {
     Exception e =
@@ -81,6 +95,13 @@ public class IntersectionLayoutTest {
             List.of(sg("sg", new Movement(Direction.NORTH, Direction.SOUTH))));
 
     assertEquals(List.of(), layout.getLanesFor(new Movement(Direction.EAST, Direction.WEST)));
+=======
+  @DisplayName("Getting lanes returns empty list when movement's from direction is not in roads")
+  public void Getting_lanes_returns_empty_list_when_movement_from_direction_not_in_roads() {
+    IntersectionLayout layout = new IntersectionLayout(java.util.Map.of());
+    List<Lane> lanes = layout.getLanesFor(new Movement(Direction.EAST, Direction.WEST));
+    assertEquals(List.of(), lanes);
+>>>>>>> main
   }
 
   @Test
@@ -91,6 +112,7 @@ public class IntersectionLayoutTest {
     Lane lane2 =
         new Lane("lane2", Direction.NORTH, Set.of(new Movement(Direction.NORTH, Direction.EAST)));
     Road road = new Road(Direction.NORTH, List.of(lane1, lane2));
+<<<<<<< feat/io-and-runner
     IntersectionLayout layout =
         new IntersectionLayout(
             Map.of(Direction.NORTH, road),
@@ -102,6 +124,12 @@ public class IntersectionLayoutTest {
 
     assertEquals(
         List.of(lane1), layout.getLanesFor(new Movement(Direction.NORTH, Direction.SOUTH)));
+=======
+    IntersectionLayout layout = new IntersectionLayout(java.util.Map.of(Direction.NORTH, road));
+
+    List<Lane> lanes = layout.getLanesFor(new Movement(Direction.NORTH, Direction.SOUTH));
+    assertEquals(List.of(lane1), lanes);
+>>>>>>> main
   }
 
   @Test
@@ -111,6 +139,7 @@ public class IntersectionLayoutTest {
         new Lane("lane1", Direction.NORTH, Set.of(new Movement(Direction.NORTH, Direction.SOUTH)));
     Lane lane2 =
         new Lane("lane2", Direction.NORTH, Set.of(new Movement(Direction.NORTH, Direction.EAST)));
+<<<<<<< feat/io-and-runner
     Lane lane3 =
         new Lane("lane3", Direction.SOUTH, Set.of(new Movement(Direction.SOUTH, Direction.NORTH)));
 
@@ -127,11 +156,24 @@ public class IntersectionLayoutTest {
                     new Movement(Direction.NORTH, Direction.EAST),
                     new Movement(Direction.SOUTH, Direction.NORTH))));
 
+=======
+    Road road1 = new Road(Direction.NORTH, List.of(lane1, lane2));
+
+    Lane lane3 =
+        new Lane("lane3", Direction.SOUTH, Set.of(new Movement(Direction.SOUTH, Direction.NORTH)));
+    Road road2 = new Road(Direction.SOUTH, List.of(lane3));
+
+    IntersectionLayout layout =
+        new IntersectionLayout(java.util.Map.of(Direction.NORTH, road1, Direction.SOUTH, road2));
+
+    Set<Movement> movements = layout.getAllMovements();
+>>>>>>> main
     assertEquals(
         Set.of(
             new Movement(Direction.NORTH, Direction.SOUTH),
             new Movement(Direction.NORTH, Direction.EAST),
             new Movement(Direction.SOUTH, Direction.NORTH)),
+<<<<<<< feat/io-and-runner
         layout.getAllMovements());
   }
 
@@ -146,6 +188,9 @@ public class IntersectionLayoutTest {
         new IntersectionLayout(Map.of(Direction.NORTH, road), List.of(group));
 
     assertEquals(List.of(group), layout.getSignalGroups());
+=======
+        movements);
+>>>>>>> main
   }
 
   @Test
@@ -169,6 +214,7 @@ public class IntersectionLayoutTest {
                     Set.of(new Movement(Direction.SOUTH, Direction.NORTH)))));
 
     IntersectionLayout layout =
+<<<<<<< feat/io-and-runner
         new IntersectionLayout(
             java.util.Map.of(Direction.NORTH, road1, Direction.SOUTH, road2),
             List.of(
@@ -176,6 +222,9 @@ public class IntersectionLayoutTest {
                     "sg",
                     new Movement(Direction.NORTH, Direction.SOUTH),
                     new Movement(Direction.SOUTH, Direction.NORTH))));
+=======
+        new IntersectionLayout(java.util.Map.of(Direction.NORTH, road1, Direction.SOUTH, road2));
+>>>>>>> main
 
     List<Direction> directions = layout.getApproachDirections();
     assertTrue(directions.contains(Direction.NORTH));
@@ -203,6 +252,7 @@ public class IntersectionLayoutTest {
                     Direction.SOUTH,
                     Set.of(new Movement(Direction.SOUTH, Direction.NORTH)))));
 
+<<<<<<< feat/io-and-runner
     SignalGroup group =
         sg(
             "sg",
@@ -211,6 +261,10 @@ public class IntersectionLayoutTest {
     IntersectionLayout layout =
         new IntersectionLayout(
             Map.of(Direction.NORTH, road1, Direction.SOUTH, road2), List.of(group));
+=======
+    IntersectionLayout layout =
+        new IntersectionLayout(java.util.Map.of(Direction.NORTH, road1, Direction.SOUTH, road2));
+>>>>>>> main
 
     assertEquals(road1, layout.getRoad(Direction.NORTH));
     assertEquals(road2, layout.getRoad(Direction.SOUTH));
