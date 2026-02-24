@@ -42,17 +42,17 @@ public class MovementTest {
 
   @ParameterizedTest
   @EnumSource(Direction.class)
-  @DisplayName("Turn type is RIGHT when to is clockwise of from")
-  public void Turn_type_should_be_RIGHT_when_to_is_clockwise_of_from(Direction from) {
+  @DisplayName("Turn type is LEFT when to is clockwise of from")
+  public void Turn_type_should_be_LEFT_when_to_is_clockwise_of_from(Direction from) {
     Movement movement = new Movement(from, from.clockwise());
-    assertEquals(TurnType.RIGHT, movement.getTurnType());
+    assertEquals(TurnType.LEFT, movement.getTurnType());
   }
 
   @ParameterizedTest
   @EnumSource(Direction.class)
-  @DisplayName("Turn type is LEFT when to is counterclockwise of from")
-  public void Turn_type_should_be_LEFT_when_to_is_counterclockwise_of_from(Direction from) {
+  @DisplayName("Turn type is RIGHT when to is counterclockwise of from")
+  public void Turn_type_should_be_RIGHT_when_to_is_counterclockwise_of_from(Direction from) {
     Movement movement = new Movement(from, from.counterClockwise());
-    assertEquals(TurnType.LEFT, movement.getTurnType());
+    assertEquals(TurnType.RIGHT, movement.getTurnType());
   }
 }

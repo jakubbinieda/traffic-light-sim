@@ -11,11 +11,9 @@ public record Movement(Direction from, Direction to) {
   public TurnType getTurnType() {
     if (from == to) {
       return TurnType.U_TURN;
-    }
-
-    if (to == from.opposite()) {
+    } else if (to == from.opposite()) {
       return TurnType.STRAIGHT;
-    } else if (to == from.clockwise()) {
+    } else if (to == from.counterClockwise()) {
       return TurnType.RIGHT;
     } else {
       return TurnType.LEFT;
