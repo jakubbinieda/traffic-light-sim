@@ -2,7 +2,7 @@ package lol.omg.jakubbinieda.sim.model;
 
 public enum TurnType {
   STRAIGHT,
-  LEFT,
   RIGHT,
+  LEFT,
   U_TURN
 }
